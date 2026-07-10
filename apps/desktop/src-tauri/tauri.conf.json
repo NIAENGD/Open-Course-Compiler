@@ -1,0 +1,1 @@
+{"productName":"Open Course Compiler","version":"0.1.0","identifier":"org.opencoursecompiler.app","build":{"frontendDist":"../dist","devUrl":"http://127.0.0.1:5173"},"app":{"windows":[{"title":"Open Course Compiler","width":1200,"height":800}]}}

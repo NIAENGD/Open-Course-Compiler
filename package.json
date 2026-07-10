@@ -1,0 +1,14 @@
+{
+  "name": "open-course-compiler",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": ["apps/desktop", "packages/shared"],
+  "scripts": {
+    "dev": "npm --workspace apps/desktop run dev",
+    "typecheck": "npm --workspace packages/shared run typecheck && npm --workspace apps/desktop run typecheck",
+    "test": "pytest",
+    "db:migrate": "python scripts/migrate.py",
+    "verify:stage1": "python scripts/verify_stage1.py"
+  }
+}
