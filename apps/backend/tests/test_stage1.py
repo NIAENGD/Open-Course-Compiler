@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import sqlite3
 import tempfile
 from pathlib import Path
 
@@ -25,7 +24,9 @@ def test_migration_creates_stage1_tables() -> None:
     with tempfile.TemporaryDirectory() as tmp:
         with connect(Path(tmp) / "app.sqlite3") as conn:
             assert apply_migrations(conn) == ["0001_stage1_baseline.sql"]
-            tables = {row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+            tables = {
+                row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")
+            }
         assert required.issubset(tables)
 
 
@@ -44,7 +45,9 @@ def test_shared_contract_schemas_validate() -> None:
         course_id="course-1",
         chunk_type="notes",
         text="Derivative rules",
-        source_ref=SourceRef(provider_id=course.provider_id, course_id="course-1", asset_id=asset.title),
+        source_ref=SourceRef(
+            provider_id=course.provider_id, course_id="course-1", asset_id=asset.title
+        ),
     )
     job = JobRecord(id="job-1", job_type=JobType.BOOTSTRAP_APP, status=JobStatus.QUEUED)
     assert chunk.source_ref.provider_id == "mit_ocw"

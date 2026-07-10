@@ -3,7 +3,7 @@ name = "open-course-compiler-backend"
 version = "0.1.0"
 description = "Local FastAPI backend for Open Course Compiler"
 requires-python = ">=3.12"
-dependencies = ["fastapi>=0.111", "pydantic>=2", "uvicorn>=0.30"]
+dependencies = ["fastapi>=0.111", "pydantic>=2", "uvicorn>=0.30", "httpx2>=0.28"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.5", "mypy>=1"]

@@ -6,11 +6,13 @@ from app.config import get_settings
 from app.db.migrate import apply_migrations
 from app.db.session import connect
 from app.paths import ensure_app_dirs
+from app.api.routes_catalog import router as catalog_router
 
 
 def create_app() -> FastAPI:
     settings = get_settings()
     app = FastAPI(title=settings.app_name, version="0.1.0")
+    app.include_router(catalog_router)
 
     @app.on_event("startup")
     def startup() -> None:
