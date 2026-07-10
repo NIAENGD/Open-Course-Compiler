@@ -6,10 +6,20 @@ from pathlib import Path
 
 
 APP_DIRS = (
-    "config", "db/migrations", "vector/lancedb", "catalog/raw/mit_ocw",
-    "catalog/raw/open_yale", "catalog/normalized", "courses", "jobs/logs",
-    "jobs/checkpoints", "cache/http", "cache/ai", "cache/embeddings",
-    "cache/thumbnails", "logs",
+    "config",
+    "db/migrations",
+    "vector/lancedb",
+    "catalog/raw/mit_ocw",
+    "catalog/raw/open_yale",
+    "catalog/normalized",
+    "courses",
+    "jobs/logs",
+    "jobs/checkpoints",
+    "cache/http",
+    "cache/ai",
+    "cache/embeddings",
+    "cache/thumbnails",
+    "logs",
 )
 
 
