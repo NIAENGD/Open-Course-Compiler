@@ -50,6 +50,54 @@
 
 ---
 
+## v0.1 分阶段实现计划
+
+本阶段计划用于把 v0.1 全规格产品范围拆成 10 个连续交付阶段。每个阶段都必须在终态接口、契约测试和可集成实现的前提下推进，不允许以 mock-only 或临时硬编码替代最终能力。
+
+### Stage 1 — Monorepo foundation, local runtime, configuration, shared types, SQLite schema baseline
+
+建立 monorepo、开发脚本、本地运行方式、配置系统、共享类型包和 SQLite schema 基线；同时定义目录规范、迁移机制、基础任务模型与最小契约测试，为后续 Provider、解析、索引、AI、GUI 和导出能力提供稳定工程地基。
+
+### Stage 2 — Provider Adapter System, MIT OCW provider, Open Yale Courses provider, catalog refresh/search/filter
+
+实现可扩展 Provider Adapter System、MIT OCW Provider、Open Yale Courses Provider 和插件接口；完成 catalog refresh / search / filter、课程元数据规范化、provider capability 标记、许可字段采集和 provider 契约测试。
+
+### Stage 3 — Course suitability engine, goal understanding, clarification flow, learning path planner
+
+实现课程适配性判断、用户学习目标解析、澄清式问答和学习路径规划；系统必须能够解释选课与排除理由，结合 deterministic rule guardrails 与结构化 AI 输出，生成跨 provider、可追踪、可调整的学习路径。
+
+### Stage 4 — Asset download manager, resumable queues, file object store, license/attribution tracking
+
+实现课程资源按需下载、断点续传、下载队列、文件对象存储、资源校验、重试策略、去重策略、许可与 attribution 追踪；每个下载资产都必须与课程、provider、来源 URL、许可信息和本地对象位置建立可审计关联。
+
+### Stage 5 — Content parsers for HTML, PDF, transcripts, subtitles, media metadata, course structure builder
+
+实现 HTML / PDF / transcript / subtitle / media metadata parser，并构建 course structure builder；系统必须能够解析 assignments、exams、readings、lecture notes、媒体清单等资源，重建课程单元、学习单元与原始课程题目来源关系。
+
+### Stage 6 — Media processing, local ASR, keyframe/OCR support, chunking, embeddings, LanceDB indexing
+
+实现视频/音频处理、本地 ASR、已有 transcript 优先策略、关键帧截图与 OCR 支持、内容 chunking、embedding 生成和 LanceDB 索引；产物必须支持本地知识库搜索、课程问答 RAG、引用定位和后续讲义/测验生成。
+
+### Stage 7 — AI provider abstraction, OpenAI/local model support, structured outputs, token ledger
+
+实现 AI provider abstraction，支持 OpenAI、本地模型、API key 配置、结构化输出、模型能力声明、错误重试、速率限制和 token 成本记录；所有 AI 调用必须可审计、可替换，并能输出符合下游 schema 的结果。
+
+### Stage 8 — Lesson compiler, notes, audio-script generation, glossary, concept cards, citation tracking
+
+实现 lesson compiler、学习单元切分、带引用讲义生成、可听版脚本生成、术语表生成、概念卡片生成和引用追踪；所有生成内容必须保留来源 chunk、原始资产、许可和 attribution 信息。
+
+### Stage 9 — Quiz/assessment generation, grading engine, rubric handling, mastery engine, remediation, spaced review
+
+实现测验生成、原题复用、rubric 生成、客观题评分、短答题语义评分、论文/开放题反馈、代码题测试支持、错因诊断、补救学习生成、掌握度状态机、延迟复测和间隔复习；reference_only 课程必须遵守掌握度边界，不得被标记为 mastered。
+
+### Stage 10 — Desktop GUI, backend API integration, exports, RAG course Q&A, full-system tests, final v0.1 verification
+
+实现本地桌面 GUI、本地 FastAPI 后端集成、导出 Markdown / PDF / Anki / JSON、本地知识库搜索、课程问答 RAG、全系统测试、干净安装验证和端到端用户闭环；最终验证必须逐项确认 `README.md` section `3.1 必须实现的全功能` 中的每个条目均已实现或被明确验收。
+
+**Completion gate:** v0.1 is not complete unless all 50 items in `README.md` section `3.1 必须实现的全功能` pass acceptance checks and the completion criteria in `README.md` section `36. 完成定义` are satisfied.
+
+---
+
 ## 1. 项目总定义
 
 ### 1.1 产品一句话
