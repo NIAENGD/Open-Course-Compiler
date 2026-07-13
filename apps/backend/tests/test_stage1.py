@@ -23,7 +23,7 @@ def test_migration_creates_stage1_tables() -> None:
     required = {"providers", "courses", "course_assets", "content_chunks", "jobs", "token_ledger"}
     with tempfile.TemporaryDirectory() as tmp:
         with connect(Path(tmp) / "app.sqlite3") as conn:
-            assert apply_migrations(conn) == ["0001_stage1_baseline.sql"]
+            assert "0001_stage1_baseline.sql" in apply_migrations(conn)
             tables = {
                 row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")
             }

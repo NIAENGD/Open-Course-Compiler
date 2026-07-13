@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from uuid import uuid4
 
-from app.catalog.repository import upsert_course, upsert_provider
+from app.catalog.repository import get_course, upsert_course, upsert_provider
 from app.db.session import connect
 from app.providers.registry import get_provider, list_providers
 from app.schemas.provider import CatalogRefreshRequest, CatalogRefreshSummary, ProviderDescriptor
+from app.suitability.classifier import classify_course
+from app.suitability.repository import persist_suitability
 
 
 async def refresh_catalog(request: CatalogRefreshRequest) -> CatalogRefreshSummary:
@@ -21,7 +23,12 @@ async def refresh_catalog(request: CatalogRefreshRequest) -> CatalogRefreshSumma
                 records = await provider.refresh_catalog(use_network=request.use_network)
                 fetched += len(records)
                 for record in records:
-                    upsert_course(conn, record)
+                    course_id = upsert_course(conn, record)
+                    conn.row_factory = __import__("sqlite3").Row
+                    course = get_course(conn, course_id)
+                    if course is not None:
+                        persist_suitability(conn, classify_course(course))
+                    conn.row_factory = None
                     upserted += 1
             except Exception as exc:  # catalog refresh records provider errors and continues
                 errors.append(f"{provider_id}: {exc}")
